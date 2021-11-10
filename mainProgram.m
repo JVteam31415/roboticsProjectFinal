@@ -1,8 +1,8 @@
 
-openAngle = 0
-closedAnge = 40% not accurate, placeholders
+openAngle = 8
+closedAnge = 55%most recent 
 r = init()
-controlLoop(5)
+controlLoop(r)
 
 
 
@@ -15,7 +15,7 @@ function r = init()
     clear all;
     arduinoObj = serialport("COM4",9600)
     configureTerminator(arduinoObj,hex2dec('5A')); % Data package ends with byte 0x5A
-    r = 
+    r = dobotInit()
 
 end
 

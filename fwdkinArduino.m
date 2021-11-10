@@ -1,11 +1,12 @@
 function robot= fwdkinArduino(robot,q,arduinoObj )
 
 configureTerminator(arduinoObj,hex2dec('5A')); % Data package ends with byte 0x5A
-
+robot.q = q
 low_lim = 10;
 up_lim = 40;
 N = 4; % Number of joints
 
+robot = fwddiffkiniter(robot) % Get T matrix and such
 
 new_angles = q
 
