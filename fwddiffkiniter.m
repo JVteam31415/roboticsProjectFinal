@@ -1,7 +1,8 @@
 function robot = fwddiffkiniter(robot)
-    angles = robot.q
+    q = robot.q
     T = eye(4,4)
     T(4,4)=1
+    n=length(q)
     %get R
     R = zeros(3,3)
     %get p

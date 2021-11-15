@@ -1,4 +1,6 @@
-function robot= fwdkinArduino(robot,q,arduinoObj )
+function robot= fwdkinArduino(robot,q,isGrab,arduinoObj )
+%q: angles
+%isgrab:1 for shut, 0 for open
 
 configureTerminator(arduinoObj,hex2dec('5A')); % Data package ends with byte 0x5A
 robot.q = q
@@ -9,8 +11,6 @@ N = 4; % Number of joints
 robot = fwddiffkiniter(robot) % Get T matrix and such
 
 new_angles = q
-
-isGrab = 0; % No suction
 
 MOVE_MODE_JUMP = 0;
 MOVE_MODE_JOINTS = 1;  % joints move independent
@@ -26,7 +26,7 @@ line_float_cmd(3) = new_angles(1);
 line_float_cmd(4) = new_angles(2);
 line_float_cmd(5) = new_angles(3);
 line_float_cmd(6) = new_angles(4);
-line_float_cmd(7) = isGrab;
+line_float_cmd(9) = 45*isGrab;
 line_float_cmd(8) = MOVE_MODE_JOINTS;
 
 % Combine datapackage
