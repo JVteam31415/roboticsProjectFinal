@@ -9,8 +9,9 @@ controlLoop(r,reclist)
 function [r,reclist] = initStuff()
     %create recipes
     rec = ["orange","blue"]
+    rec2 = ["green","purple"]
     reclist(1)=recipe(rec,"sample");
-    reclist(2)=recipe(rec,"sample2");
+    reclist(2)=recipe(rec2,"sample2");
 
     %set up robot
     %arduinoObj = serialport("COM4",9600)
@@ -46,15 +47,15 @@ function controlLoop(rob, reclist)
             %for each ingredient in recipe
             for j=1:length(reclist(ans).ingredientList)
                 %identify ingredient location
-                thisOne = reclist(ans).ingredientList(j)
+                colorToGet = reclist(ans).ingredientList(j)
     %% 
     
                 %secure it
                     %move to cup
-                    q1 = zeros(4)%invkin(r,);
+                    q1 = zeros(4);%invkin(r,);
                     %rob = fwdkinArduino(rob,q1,0,arduinoObj)
                     %descend
-                    q2 = zeros(4)
+                    q2 = zeros(4);
                     %rob = fwdkinArduino(rob,q2,0,arduinoObj)
                     %close claw
                     %rob = fwdkinArduino(rob,q2,1,arduinoObj)
@@ -65,10 +66,10 @@ function controlLoop(rob, reclist)
                    
                 %bring to location
                     %move across
-                    q3 = zeros(4)%invkin(r,);
+                    q3 = zeros(4);%invkin(r,);
                     %rob = fwdkinArduino(rob,q3,1,arduinoObj)
                     %descend
-                    q4 = zeros(4)
+                    q4 = zeros(4);
                     %rob = fwdkinArduino(rob,q4,1,arduinoObj)
                     %open claw
                     %rob = fwdkinArduino(rob,q4,0,arduinoObj)
