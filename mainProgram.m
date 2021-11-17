@@ -14,7 +14,7 @@ function r = init()
     clear all;
     arduinoObj = serialport("COM4",9600)
     configureTerminator(arduinoObj,hex2dec('5A')); % Data package ends with byte 0x5A
-    r = dobotInit()
+    r = dobotInitNew()
 
 end
 
@@ -36,24 +36,30 @@ function controlLoop(rob)
     
                 %secure it
                     %move to cup
-                    q = zeros(4)%invkin(r,);
-                    rob = forwardKinematics(q,rob)
-                    %open claw
-                    q = [zeros(3),openAngle]
-                    rob = forwardKinematics(q,rob)
+                    q1 = zeros(4)%invkin(r,);
+                    rob = fwdkinArduino(rob,q1,0,arduinoObj)
                     %descend
+                    q2 = zeros(4)
+                    rob = fwdkinArduino(rob,q2,0,arduinoObj)
                     %close claw
-                    q = [zeros(3),closedAngle]
-                    rob = forwardKinematics(q,rob)
+                    rob = fwdkinArduino(rob,q2,1,arduinoObj)
                     %% 
                     %ascend
+                    rob = fwdkinArduino(rob,q1,1,arduinoObj)
+                    
+                   
                 %bring to location
                     %move across
+                    q3 = zeros(4)%invkin(r,);
+                    rob = fwdkinArduino(rob,q3,1,arduinoObj)
                     %descend
+                    q4 = zeros(4)
+                    rob = fwdkinArduino(rob,q4,1,arduinoObj)
                     %open claw
-                    q = [zeros(3),openAngle]
-                    rob = forwardKinematics(q,rob)
+                    rob = fwdkinArduino(rob,q4,0,arduinoObj)
+                    %% 
                     %ascend
+                    rob = fwdkinArduino(rob,q3,0,arduinoObj)
                     %return
     end
 end
