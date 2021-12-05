@@ -1,27 +1,27 @@
 % q2+q3 = 108 for tall cups
+% 70?
 % q2+q3 = 125 for short cups
 
 
 clear all;
-updown = 90;
-pour = -10;
+initcom()
+updown = -30;
+pour = (updown+90);
+if(pour>90)
+pour = pour-180;
+end
 location = -90;
 [r,reclist] = initStuff()
-controlLoop(r,reclist)
+%controlLoop(r,reclist)
 
 
 
 
 function [r,reclist] = initStuff()
     %create recipes
-    rec = ["orange","blue"]
-    rec2 = ["green","purple"]
+    rec = ["blue"]
     reclist(1)=recipe(rec,"sample");
-    reclist(2)=recipe(rec2,"sample2");
 
-    %set up robot
-    %arduinoObj = serialport("COM4",9600)
-    %configureTerminator(arduinoObj,hex2dec('5A')); % Data package ends with byte 0x5A
     r = dobotInitNew()
 
 end
@@ -59,33 +59,33 @@ function controlLoop(rob, reclist)
                 %secure it
                     %in position
                     q1 = [aim, 28,80,updown]%invkin(r,);
-                    rob = fwdkinArduino(rob,q1,0,arduinoObj)
+                    rob = fwdkinArduino(rob,q1,1,arduinoObj)
                     %forward
                     q2 = [aim, 58,50,updown]
-                    rob = fwdkinArduino(rob,q2,0,arduinoObj)
-                    %close claw
                     rob = fwdkinArduino(rob,q2,1,arduinoObj)
+                    %close claw
+                    rob = fwdkinArduino(rob,q2,0,arduinoObj)
                     %% 
                     %ascend
                     q21 = [aim,10,10,updown]
-                    rob = fwdkinArduino(rob,q21,1,arduinoObj)
+                    rob = fwdkinArduino(rob,q21,0,arduinoObj)
                     
                    
                 %bring to location
                     %move across
                     q3 = [location,10,10,updown];%invkin(r,);
-                    rob = fwdkinArduino(rob,q3,1,arduinoObj)
+                    rob = fwdkinArduino(rob,q3,0,arduinoObj)
                     %pour
                     q4 = [location,10,10,pour];
-                    rob = fwdkinArduino(rob,q4,1,arduinoObj)
+                    rob = fwdkinArduino(rob,q4,0,arduinoObj)
 
                     
                     %return
-                    rob = fwdkinArduino(rob,q3,1,arduinoObj)
-                    rob = fwdkinArduino(rob,q21,1,arduinoObj)
-                    rob = fwdkinArduino(rob,q2,1,arduinoObj)
+                    rob = fwdkinArduino(rob,q3,0,arduinoObj)
+                    rob = fwdkinArduino(rob,q21,0,arduinoObj)
                     rob = fwdkinArduino(rob,q2,0,arduinoObj)
-                    rob = fwdkinArduino(rob,q1,0,arduinoObj)
+                    rob = fwdkinArduino(rob,q2,1,arduinoObj)
+                    rob = fwdkinArduino(rob,q1,1,arduinoObj)
             end
 
         end
