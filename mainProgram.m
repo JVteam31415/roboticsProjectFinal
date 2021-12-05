@@ -1,16 +1,16 @@
-% q2+q3 = 108 for tall cups
-% 70?
+% q2+q3 = 95 for tall cups
+% 
 % q2+q3 = 125 for short cups
 
 
 clear all;
 initcom()
 updown = -30;
-pour = (updown+90);
+pour = (updown+100);
 if(pour>90)
 pour = pour-180;
 end
-location = -90;
+location = -60;
 [r,reclist] = initStuff()
 %controlLoop(r,reclist)
 
@@ -20,7 +20,7 @@ location = -90;
 function [r,reclist] = initStuff()
     %create recipes
     rec = ["blue"]
-    reclist(1)=recipe(rec,"sample");
+    reclist(1)=recipe(rec,"blue");
 
     r = dobotInitNew()
 
@@ -58,25 +58,25 @@ function controlLoop(rob, reclist)
                 aim = 30
                 %secure it
                     %in position
-                    q1 = [aim, 28,80,updown]%invkin(r,);
+                    q1 = [aim, 43,52,updown]%invkin(r,);
                     rob = fwdkinArduino(rob,q1,1,arduinoObj)
                     %forward
-                    q2 = [aim, 58,50,updown]
+                    q2 = [aim, 43,52,updown]
                     rob = fwdkinArduino(rob,q2,1,arduinoObj)
                     %close claw
                     rob = fwdkinArduino(rob,q2,0,arduinoObj)
                     %% 
                     %ascend
-                    q21 = [aim,10,10,updown]
+                    q21 = [aim,5,0,updown]
                     rob = fwdkinArduino(rob,q21,0,arduinoObj)
                     
                    
                 %bring to location
                     %move across
-                    q3 = [location,10,10,updown];%invkin(r,);
+                    q3 = [location,5,0,updown];%invkin(r,);
                     rob = fwdkinArduino(rob,q3,0,arduinoObj)
                     %pour
-                    q4 = [location,10,10,pour];
+                    q4 = [location,5,0,pour];
                     rob = fwdkinArduino(rob,q4,0,arduinoObj)
 
                     
