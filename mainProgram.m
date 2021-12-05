@@ -1,5 +1,11 @@
- 
+% q2+q3 = 108 for tall cups
+% q2+q3 = 125 for short cups
+
+
 clear all;
+updown = 90;
+pour = -10;
+location = -90;
 [r,reclist] = initStuff()
 controlLoop(r,reclist)
 
@@ -49,34 +55,37 @@ function controlLoop(rob, reclist)
                 %identify ingredient location
                 colorToGet = reclist(ans).ingredientList(j)
     %% 
-    
+                aim = 30
                 %secure it
-                    %move to cup
-                    q1 = zeros(4);%invkin(r,);
-                    %rob = fwdkinArduino(rob,q1,0,arduinoObj)
-                    %descend
-                    q2 = zeros(4);
-                    %rob = fwdkinArduino(rob,q2,0,arduinoObj)
+                    %in position
+                    q1 = [aim, 28,80,updown]%invkin(r,);
+                    rob = fwdkinArduino(rob,q1,0,arduinoObj)
+                    %forward
+                    q2 = [aim, 58,50,updown]
+                    rob = fwdkinArduino(rob,q2,0,arduinoObj)
                     %close claw
-                    %rob = fwdkinArduino(rob,q2,1,arduinoObj)
+                    rob = fwdkinArduino(rob,q2,1,arduinoObj)
                     %% 
                     %ascend
-                    %rob = fwdkinArduino(rob,q1,1,arduinoObj)
+                    q21 = [aim,10,10,updown]
+                    rob = fwdkinArduino(rob,q21,1,arduinoObj)
                     
                    
                 %bring to location
                     %move across
-                    q3 = zeros(4);%invkin(r,);
-                    %rob = fwdkinArduino(rob,q3,1,arduinoObj)
-                    %descend
-                    q4 = zeros(4);
-                    %rob = fwdkinArduino(rob,q4,1,arduinoObj)
-                    %open claw
-                    %rob = fwdkinArduino(rob,q4,0,arduinoObj)
-                    %% 
-                    %ascend
-                    %rob = fwdkinArduino(rob,q3,0,arduinoObj)
+                    q3 = [location,10,10,updown];%invkin(r,);
+                    rob = fwdkinArduino(rob,q3,1,arduinoObj)
+                    %pour
+                    q4 = [location,10,10,pour];
+                    rob = fwdkinArduino(rob,q4,1,arduinoObj)
+
+                    
                     %return
+                    rob = fwdkinArduino(rob,q3,1,arduinoObj)
+                    rob = fwdkinArduino(rob,q21,1,arduinoObj)
+                    rob = fwdkinArduino(rob,q2,1,arduinoObj)
+                    rob = fwdkinArduino(rob,q2,0,arduinoObj)
+                    rob = fwdkinArduino(rob,q1,0,arduinoObj)
             end
 
         end

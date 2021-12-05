@@ -3,7 +3,8 @@ function robot= fwdkinArduino(robot,q,isGrab,arduinoObj )
 %isgrab:1 for shut, 0 for open
 
 configureTerminator(arduinoObj,hex2dec('5A')); % Data package ends with byte 0x5A
-robot.q = q
+robot.q = zeros(4);
+robot.q = q;
 low_lim = 10;
 up_lim = 40;
 N = 4; % Number of joints

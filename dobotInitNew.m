@@ -1,5 +1,8 @@
 function robot = dobotInitNew()
 
+
+
+
 zz=zeros(3,1); ex = [1;0;0]; ey = [0;1;0]; ez = [0;0;1];
 
 
