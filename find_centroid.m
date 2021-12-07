@@ -10,7 +10,7 @@ first1found = 0;
 skipRows = 50;
 top_left = [-1 -1];
 bot_right = [-1 -1];
-i = 0;
+i = 1;
 while i < height
     for j = 1:width
         if pixels(i,j) == 1

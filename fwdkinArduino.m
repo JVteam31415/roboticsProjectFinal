@@ -9,9 +9,9 @@ low_lim = 10;
 up_lim = 40;
 N = 4; % Number of joints
 
-robot = fwddiffkiniter(robot) % Get T matrix and such
+robot = fwddiffkiniter(robot); % Get T matrix and such
 
-new_angles = q
+new_angles = q;
 
 MOVE_MODE_JUMP = 0;
 MOVE_MODE_JOINTS = 1;  % joints move independent

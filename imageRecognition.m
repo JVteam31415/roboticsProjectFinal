@@ -1,5 +1,5 @@
 
-function [foundBlue, foundYellow, centroid] = imageRecognition(image)
+function [yellow_pixels, blue_pixels, foundBlue, foundYellow, centroid] = imageRecognition(image)
 
 % Function for the DoBartender which takes an image and returns 
 % the centroid of the blue or yellow rectangle found in the image,
@@ -15,7 +15,7 @@ yellow_pixels = yellowmask(image);
 blue_pixels = bluemask(image);
 
 %Filter out noise with an arbitrary threshold of pixel
-percentageThreshold = 0.03;
+percentageThreshold = 0.005;
 pixelThreshold = (im_height*im_width)*percentageThreshold;
 
 yellow_counter = 0;
@@ -32,6 +32,8 @@ for i = 1:im_height
     end 
 end 
 
+display(yellow_counter)
+display(blue_counter)
 %Determine which one was found (if at all), and filter out the other one
 %with noise
 foundBlue = 0;
@@ -45,19 +47,20 @@ if yellow_counter > pixelThreshold
     foundYellow = 1;
 end 
 %     This should not happen. Test for it though
-assert(~(foundBlue && foundYellow), "Found both yellow and blue! This should not occur");
+% assert(~(foundBlue && foundYellow), "Found both yellow and blue! This should not occur");
 
+display(foundYellow)
 if foundYellow
 %     Determine centroid for yellow
-    centroid = find_centroid(yellow_pixels); 
+    centroid = find_centroid(yellow_pixels,im_height,im_width); 
 elseif foundBlue
-    centroid = find_centroid(blue_pixels);
+    centroid = find_centroid(blue_pixels,im_height,im_width);
 else
 %     No centroid found
     centroid = [-1 -1];
 end 
 
-
+display(centroid)
 
 
 

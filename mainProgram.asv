@@ -62,10 +62,10 @@ function controlLoop(rob, reclist,cam,updown,pour, arduinoObj, loc)
                 %identify ingredient location
                 colorToGet = reclist(answer).ingredientList(j);
     %%          
-                aim = -1;
+                aim = 0;
                 newq = [35,20,72,updown];
                 %keep going until find
-                for i=1:14
+                while 1
                     rob = fwdkinArduino(rob,newq,1,arduinoObj);
                     %take picture
                     image = snapshot(cam);
@@ -82,7 +82,7 @@ function controlLoop(rob, reclist,cam,updown,pour, arduinoObj, loc)
                         end
                     elseif strcmp(colorToGet,"yellow")
                         if foundYellow
-                            if (centroid>200)&(centroid<440) 
+                            if (centroid>0)&(centroid<440) 
                                 cluster = image .* uint8(yp);
                                 imshow(cluster);
                                 found = 1;
@@ -97,10 +97,6 @@ function controlLoop(rob, reclist,cam,updown,pour, arduinoObj, loc)
                         newq = [newq(1)-5,20,72,updown];
                     end
                 end
-                if(aim==-1)
-                    break
-                end
-
 
                 %secure it
                     %in position
