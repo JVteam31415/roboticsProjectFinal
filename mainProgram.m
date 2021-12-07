@@ -26,6 +26,9 @@ function [r,reclist] = initStuff()
     reclist(1)=recipe(rec,"blue");
     rec2 = ["yellow"];
     reclist(2)=recipe(rec2,"yellow");
+    rec3 = ["blue","yellow"]
+    reclist(3)=recipe(rec3,"both");
+
 
     r = dobotInitNew();
 
@@ -74,7 +77,7 @@ function controlLoop(rob, reclist,cam,updown,pour, arduinoObj, loc)
                     found =0; %colorToGet 
                     if strcmp(colorToGet,"blue")
                         if foundBlue
-                            if (centroid>120)&(centroid<360) 
+                            if (centroid(2)>220)&(centroid(2)<440) 
                                 cluster = image .* uint8(bp);
                                 imshow(cluster);
                                 found = 1;
@@ -82,7 +85,7 @@ function controlLoop(rob, reclist,cam,updown,pour, arduinoObj, loc)
                         end
                     elseif strcmp(colorToGet,"yellow")
                         if foundYellow
-                            if (centroid>200)&(centroid<440) 
+                            if (centroid(2)>220)&(centroid(2)<440) 
                                 cluster = image .* uint8(yp);
                                 imshow(cluster);
                                 found = 1;
