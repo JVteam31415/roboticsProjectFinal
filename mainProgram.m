@@ -136,6 +136,31 @@ function controlLoop(rob, reclist,cam,updown,pour, arduinoObj, loc)
                     rob = fwdkinArduino(rob,q2,1,arduinoObj);
                     rob = fwdkinArduino(rob,q1,1,arduinoObj);
             end
+            %head to bin
+            q5 = [loc,35,75,updown];
+            rob = fwdkinArduino(rob,q5,1,arduinoObj);
+            %get bin
+            q6 = [loc,45,65,updown];
+            rob = fwdkinArduino(rob,q6,1,arduinoObj);
+            rob = fwdkinArduino(rob,q6,0,arduinoObj);
+            %lift bin
+            q4 = [loc,5,0,updown];
+            rob = fwdkinArduino(rob,q4,0,arduinoObj);
+            %bring bin to person
+            q7 = [60,5,0,updown];
+            rob = fwdkinArduino(rob,q7,0,arduinoObj);
+            %set bin down
+            q8 = [60,45,65,updown];
+            rob = fwdkinArduino(rob,q8,0,arduinoObj);
+            rob = fwdkinArduino(rob,q8,1,arduinoObj);
+            pause(1);
+            %return to middle
+            rob = fwdkinArduino(rob,[0,20,72,updown],1,arduinoObj);
+            
+
+
+
+
 
         end
        
